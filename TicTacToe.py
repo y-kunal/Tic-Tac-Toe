@@ -8,6 +8,9 @@ mainframe=Frame(root)
 Frm1=Frame(mainframe)
 Frm2=Frame(mainframe)
 Frm3=Frame(mainframe)
+
+winnerframe = Frame(root,bg="lightblue")
+
 str1=""
 str2=""
 
@@ -30,6 +33,7 @@ menufont=("Comic Sans Ms",10)
 label1=Label(root,text="Tic Tac Toe",font=titlefont,bg="lightblue")
 label1.pack(anchor=N,side=TOP)
 mainframe.pack()
+winnerframe.pack(side=BOTTOM)
 
 # check all winning condition
 def win():
@@ -77,14 +81,18 @@ def btn_click(c):
     counter = counter + 1
 
     winner=win()
+
     if winner==1:
         play-=1
         win_name=str1 if play==1 else str2
         ButtonFrame.pack_forget()
-        print(win_name+" Won")
+        winner_name = Label(winnerframe,text=win_name+" Won",font=fonts,bg="lightblue")
+        winner_name.pack(pady=50)
+
     elif counter == 9:
-        # ButtonFrame.pack_forget()
-        print("Pheww draw ")
+        ButtonFrame.pack_forget()
+        winner_name = Label(winnerframe,text="Pheww draw",font=fonts,bg="lightblue")
+        winner_name.pack(pady=50)
 
 
 #board design
@@ -92,6 +100,7 @@ def board():
 
     # btntxt=StringVar()
     # btntxt.set(" ")
+    
     ButtonFrame.pack(pady=50) 
     for i in range(1,10):
         btn.append(Button(ButtonFrame,text=str(i),bg="lightgreen",width=10,height=5,command=lambda count=i :btn_click(count),bd=5,relief=SUNKEN))
@@ -103,7 +112,7 @@ def navbar():
     menuframe.pack()
     menubar=Menu(menuframe,font=menufont)
     game=Menu(menubar,tearoff=0,font=menufont)
-    game.add_command(label="New Board",command=board)
+    game.add_command(label="New Board")
     game.add_command(label="Return")
     game.add_separator()
     game.add_command(label="Exit",command=root.quit)
@@ -129,7 +138,7 @@ def playbutton():
     mainframe.pack_forget()
     label1.pack_forget()
     navbar()
-    gameframe1=Frame()
+    gameframe1=Frame(root)
     gameframe1.pack()
 
 #players name header    
@@ -138,17 +147,7 @@ def playbutton():
 
     str=str1+" Vs "+str2
     playerlabel=Label(gameframe1,text=str,font=titlefont,bg="lightblue")
-    playerlabel.pack()
-    board()
-
-def NewBoard():
-    
-    ButtonFrame.pack(pady=50) 
-    for i in range(1,10):
-        btn.append(Button(ButtonFrame,text=str(i),bg="lightgreen",width=10,height=5,command=lambda count=i :btn_click(count),bd=5,relief=SUNKEN))
-        btn[i].config(State = "enabled")
-        btn[i].grid(row=r[i],column=c[i])
-
+    playerlabel.pack(side = TOP)
     board()
 
 # For taking player 1 name
@@ -172,7 +171,7 @@ Frm2.pack(anchor=NW)
 # play and quit button'
 playbtn=Button(Frm3,text="Play",font=btnfont,bg="lightgreen",command=playbutton)
 playbtn.pack(side=LEFT,pady=70)
-exit=Button(Frm3,text="Exit",font=btnfont,bg="red")
+exit=Button(Frm3,text="Exit",font=btnfont,bg="red",command = root.quit)
 exit.pack(pady=70)
 Frm3.pack() 
 
