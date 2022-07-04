@@ -82,7 +82,7 @@ def btn_click(c):
         win_name=str1 if play==1 else str2
         ButtonFrame.pack_forget()
         print(win_name+" Won")
-    elif counter == 8:
+    elif counter == 9:
         # ButtonFrame.pack_forget()
         print("Pheww draw ")
 
